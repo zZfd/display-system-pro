@@ -1,26 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import WaterPage from "@/components/honey/WaterPage";
+import React, { useRef, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
 
 const ImageCarousel = () => {
   const images = [
-    require("../assets/images/honey/honey-water-bg.png"),
-    require("../assets/images/honey/honey-box-bg.png"),
+    require("@/assets/images/honey/honey-water-bg.png"),
+    require("@/assets/images/honey/honey-box-bg.png"),
   ];
   const [currentPage, setCurrentPage] = useState(0);
   const pageViewerRef = useRef<PagerView>(null);
 
   // 自动轮播逻辑
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextPage = (currentPage + 1) % images.length;
-      // 使用 setPageWithoutAnimation 来确保动画方向一致
-      pageViewerRef.current?.setPageWithoutAnimation(nextPage);
-      setCurrentPage(nextPage);
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const nextPage = (currentPage + 1) % images.length;
+  //     // 使用 setPageWithoutAnimation 来确保动画方向一致
+  //     pageViewerRef.current?.setPageWithoutAnimation(nextPage);
+  //     setCurrentPage(nextPage);
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, [currentPage]);
+  //   return () => clearInterval(interval);
+  // }, [currentPage]);
 
   const handlePageChange = (e: any) => {
     const newPosition = e.nativeEvent.position;
@@ -44,11 +45,12 @@ const ImageCarousel = () => {
         onPageSelected={handlePageChange}
         scrollEnabled={true}
       >
-        {images.map((img, index) => (
+        {/* {images.map((img, index) => (
           <View key={index} style={styles.page}>
             <Image source={img} style={styles.image} resizeMode="contain" />
           </View>
-        ))}
+        ))} */}
+        <WaterPage />
       </PagerView>
     </View>
   );
