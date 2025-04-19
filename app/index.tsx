@@ -1,6 +1,5 @@
 import WaterPage from "@/components/honey/WaterPage";
-import { useLocalRealm } from "@/libs/database/context";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import PagerView from "react-native-pager-view";
 
@@ -11,11 +10,6 @@ const ImageCarousel = () => {
   ];
   const [currentPage, setCurrentPage] = useState(0);
   const pageViewerRef = useRef<PagerView>(null);
-  const realm = useLocalRealm();
-
-  useEffect(() => {
-    console.log(realm.schema);
-  }, []);
 
   // 自动轮播逻辑
   // useEffect(() => {

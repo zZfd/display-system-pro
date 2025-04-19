@@ -1,7 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { scale, ScaledSheet } from "react-native-size-matters";
+import AddTransaction from "./AddTransaction";
+import TransactionInfo from "./TransactionInfo";
 const WaterPage = () => {
   return (
     <SafeAreaProvider>
@@ -16,43 +18,51 @@ const WaterPage = () => {
             resizeMode="contain"
             style={styles.logo}
           /> */}
-          <Text style={styles.title}>{"柠檬\n蜂蜜水"}</Text>
-          {/* <ProductAmount style={styles.styles} /> */}
-          <View style={styles.mainAmount}>
-            <Text style={styles.amountTitle}>惊喜价</Text>
-            <AmountRow />
-          </View>
-          <View style={styles.bottomAmount}>
-            <View style={styles.tagContainer}>
-              <Text style={styles.tagTitle}>惊喜价</Text>
-            </View>
-            <AmountRow fontSize={scale(18)} />
-          </View>
-          <View style={styles.descriptionBlock}>
-            <View style={styles.vDivider}></View>
-            <View style={styles.description}>
-              <Text style={styles.descriptionText}>
-                蜂蜜、柠檬和水混合而成。
-              </Text>
-              <Text style={styles.descriptionSubText}>
-                清甜解渴，补充能量，继续前行。
-              </Text>
-              <View style={styles.hDivider}></View>
-              <Text style={styles.storeText}>扫码获取更多甜蜜！</Text>
-            </View>
-          </View>
-          <View style={styles.qrCodeBlock}>
-            <Image
-              source={require("@/assets/images/honey/product-qrcode.jpg")}
-              resizeMode="contain"
-              style={styles.qrCode}
-            />
-          </View>
+          <ProductPage />
+          <TransactionInfo />
+          <AddTransaction />
         </ImageBackground>
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
+
+const ProductPage = memo(() => {
+  return (
+    <>
+      <Text style={styles.title}>{"柠檬\n蜂蜜水"}</Text>
+      {/* <ProductAmount style={styles.styles} /> */}
+      <View style={styles.mainAmount}>
+        <Text style={styles.amountTitle}>惊喜价</Text>
+        <AmountRow />
+      </View>
+      <View style={styles.bottomAmount}>
+        <View style={styles.tagContainer}>
+          <Text style={styles.tagTitle}>惊喜价</Text>
+        </View>
+        <AmountRow fontSize={scale(18)} />
+      </View>
+      <View style={styles.descriptionBlock}>
+        <View style={styles.vDivider}></View>
+        <View style={styles.description}>
+          <Text style={styles.descriptionText}>蜂蜜、柠檬和水混合而成。</Text>
+          <Text style={styles.descriptionSubText}>
+            清甜解渴，补充能量，继续前行。
+          </Text>
+          <View style={styles.hDivider}></View>
+          <Text style={styles.storeText}>扫码获取更多甜蜜！</Text>
+        </View>
+      </View>
+      <View style={styles.qrCodeBlock}>
+        <Image
+          source={require("@/assets/images/honey/product-qrcode.jpg")}
+          resizeMode="contain"
+          style={styles.qrCode}
+        />
+      </View>
+    </>
+  );
+});
 
 interface AmountRowProps {
   fontSize?: number;
