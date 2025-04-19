@@ -26,6 +26,24 @@ const AddTransaction = memo(() => {
     });
   };
 
+  const addBoxHoney = () => {
+    realm.write(() => {
+      realm.create<Transaction>("Transaction", {
+        _id: new Realm.BSON.ObjectID(),
+        amount: 9.9,
+        paidDate: new Date(),
+        items: [
+          {
+            _id: new Realm.BSON.ObjectID(),
+            title: "蜂蜜便携装",
+            price: 17,
+            quantity: 1,
+          },
+        ],
+      });
+    });
+  };
+
   const deleteAllTransactions = () => {
     realm.write(() => {
       const allTransactions = realm.objects<Transaction>("Transaction");
@@ -40,6 +58,13 @@ const AddTransaction = memo(() => {
         title="1杯柠檬蜂蜜水"
         size="small"
         onPress={addLemonHoneyWater}
+        style={styles.button}
+      />
+      <Button
+        type="primary"
+        title="1盒蜂蜜"
+        size="small"
+        onPress={addBoxHoney}
         style={styles.button}
       />
       <Button
