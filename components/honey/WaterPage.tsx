@@ -117,12 +117,12 @@ const styles = ScaledSheet.create({
     fontFamily: "SpaceMono",
     position: "absolute",
     top: "72@s",
-    left: "140@s",
+    left: "156@s",
   },
   mainAmount: {
     position: "absolute",
     top: "163@s",
-    left: "168@s",
+    left: "185@s",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -136,12 +136,12 @@ const styles = ScaledSheet.create({
   bottomAmount: {
     position: "absolute",
     bottom: "30@s",
-    left: "140@s",
+    left: "156@s",
   },
   descriptionBlock: {
     position: "absolute",
     bottom: "30@s",
-    left: "180@s",
+    left: "200@s",
     flexDirection: "row",
     alignItems: "flex-start",
     columnGap: "6@s",
@@ -188,7 +188,7 @@ const styles = ScaledSheet.create({
     borderRadius: "4@s",
     position: "absolute",
     bottom: "28@s",
-    right: "135@s",
+    left: "308@s",
   },
   qrCode: {
     width: "34@s",
