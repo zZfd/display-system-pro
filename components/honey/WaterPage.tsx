@@ -11,6 +11,11 @@ const WaterPage = () => {
           resizeMode="contain"
           style={styles.backgroundImage}
         >
+          {/* <Image
+            source={require("@/assets/images/honey/logo.jpeg")}
+            resizeMode="contain"
+            style={styles.logo}
+          /> */}
           <Text style={styles.title}>{"柠檬\n蜂蜜水"}</Text>
           {/* <ProductAmount style={styles.styles} /> */}
           <View style={styles.mainAmount}>
@@ -96,6 +101,14 @@ const styles = ScaledSheet.create({
     flex: 1,
     position: "relative",
   },
+  logo: {
+    width: "24@s",
+    height: "24@s",
+    borderRadius: "30@s",
+    position: "absolute",
+    top: "32@s",
+    left: "135@s",
+  },
   title: {
     color: "#f5e4c6",
     fontSize: "24@s",
@@ -103,7 +116,7 @@ const styles = ScaledSheet.create({
     fontWeight: "bold",
     fontFamily: "SpaceMono",
     position: "absolute",
-    top: "80@s",
+    top: "72@s",
     left: "140@s",
   },
   mainAmount: {
