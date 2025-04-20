@@ -1,27 +1,41 @@
 import React, { memo } from "react";
-import { Image, ImageBackground, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { scale, ScaledSheet } from "react-native-size-matters";
 import AddTransaction from "./AddTransaction";
 import TransactionInfo from "./TransactionInfo";
+import { useMultipleTap } from "../../hooks/useMultipleTap";
+
 const WaterPage = () => {
+  const { isTriggered: showTransaction, handleTap } = useMultipleTap({
+    tapsRequired: 3,
+    timeThreshold: 1000,
+  });
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={["left", "right"]}>
-        <ImageBackground
-          source={require("@/assets/images/honey/honey-water-bg.png")}
-          resizeMode="contain"
-          style={styles.backgroundImage}
-        >
-          {/* <Image
-            source={require("@/assets/images/honey/logo.jpeg")}
+        <TouchableWithoutFeedback onPress={handleTap}>
+          <ImageBackground
+            source={require("@/assets/images/honey/honey-water-bg.png")}
             resizeMode="contain"
-            style={styles.logo}
-          /> */}
-          <ProductPage />
-          <TransactionInfo />
-          <AddTransaction />
-        </ImageBackground>
+            style={styles.backgroundImage}
+          >
+            <ProductPage />
+            {showTransaction && (
+              <>
+                <TransactionInfo />
+                <AddTransaction />
+              </>
+            )}
+          </ImageBackground>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
     </SafeAreaProvider>
   );
