@@ -8,9 +8,10 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { scale, ScaledSheet } from "react-native-size-matters";
+import { useMultipleTap } from "../../hooks/useMultipleTap";
+import MarqueeText from "../common/MarqueeText";
 import AddTransaction from "./AddTransaction";
 import TransactionInfo from "./TransactionInfo";
-import { useMultipleTap } from "../../hooks/useMultipleTap";
 
 const WaterPage = () => {
   const { isTriggered: showTransaction, handleTap } = useMultipleTap({
@@ -27,6 +28,10 @@ const WaterPage = () => {
             resizeMode="contain"
             style={styles.backgroundImage}
           >
+            <MarqueeText
+              blinking={false}
+              value="蜂蜜水，清甜解渴，补充能量，继续前行！蜂蜜水，清甜解渴，补充能量，继续前行！蜂蜜水，清甜解渴，补充能量，继续前行！"
+            />
             <ProductPage />
             {showTransaction && (
               <>
