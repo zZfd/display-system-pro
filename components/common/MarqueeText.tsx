@@ -1,5 +1,5 @@
 import { max, sum } from "lodash";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import {
   NativeSyntheticEvent,
   StyleProp,
@@ -38,13 +38,14 @@ const MarqueeText: FC<MarqueeTextProps> = ({ value, textStyle, blinking }) => {
   const translateSharedValue = useSharedValue(0);
   const textSharedValue = useSharedValue(0);
   const [textStyles, setTextStyles] = useState<State>({
-    numberOfLines: 1,
+    numberOfLines: undefined,
     maxWidth: undefined,
     maxHeight: 0,
     marquee: false,
   });
   const textWith = textStyles.maxWidth;
   const marquee = textStyles.marquee;
+  const lineLength = useRef(0);
 
   useEffect(() => {
     if (marquee && textWith) {
@@ -52,7 +53,7 @@ const MarqueeText: FC<MarqueeTextProps> = ({ value, textStyle, blinking }) => {
       translateSharedValue.value = withRepeat(
         withTiming(-offset, {
           easing: Easing.linear,
-          duration: (offset / 50) * 1000, // speed, 50s/px
+          duration: (offset / 100) * 1000, // speed, 50s/px
           reduceMotion: ReduceMotion.Never,
         }),
         -1,
@@ -72,14 +73,14 @@ const MarqueeText: FC<MarqueeTextProps> = ({ value, textStyle, blinking }) => {
       backgroundColor: interpolateColor(
         textSharedValue.value,
         [0, 1],
-        ["#fff", "#303030"],
+        ["#ef723a", "#303030"],
         "HSV",
         { useCorrectedHSVInterpolation: true }
       ),
       color: interpolateColor(
         textSharedValue.value,
         [0, 1],
-        ["#303030", "#fff"],
+        ["#fff", "#fff"],
         "HSV",
         { useCorrectedHSVInterpolation: true }
       ),
@@ -126,13 +127,19 @@ const MarqueeText: FC<MarqueeTextProps> = ({ value, textStyle, blinking }) => {
       return;
     }
     const lines = layout.nativeEvent.lines;
-    const totalWidth = Math.ceil(sum(lines.map((it) => it.width)));
-    setTextStyles({
-      numberOfLines: undefined,
-      maxWidth: totalWidth,
-      maxHeight: max(lines.map((it) => it.height)) || 0,
-      marquee: lines.length > 1,
-    });
+    if (lines.length > 1 && !lineLength.current) {
+      lineLength.current = lines.length;
+      const totalWidth = Math.ceil(sum(lines.map((it) => it.width)));
+      setTextStyles({
+        numberOfLines: undefined,
+        maxWidth: totalWidth,
+        maxHeight: max(lines.map((it) => it.height)) || 0,
+        marquee: false,
+      });
+    }
+    if (lineLength.current > 1) {
+      setTextStyles((pre) => ({ ...pre, marquee: true }));
+    }
   };
 
   return (
@@ -182,12 +189,15 @@ const MarqueeText: FC<MarqueeTextProps> = ({ value, textStyle, blinking }) => {
 
 const styles = ScaledSheet.create({
   wrapper: {
-    height: "40@vs",
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
-    maxWidth: "80%",
+    top: 0,
+    left: 0,
+    right: 0,
+    position: "absolute",
+    // maxWidth: "80%",
   },
   container: {
     flex: 1,
@@ -195,7 +205,7 @@ const styles = ScaledSheet.create({
     flexDirection: "row",
   },
   text: {
-    fontSize: "20@s",
+    fontSize: "12@s",
     color: "#303030",
     fontWeight: "700",
   },

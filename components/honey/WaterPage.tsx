@@ -1,7 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import {
   Image,
   ImageBackground,
+  StatusBar,
   Text,
   TouchableWithoutFeedback,
   View,
@@ -13,11 +14,16 @@ import MarqueeText from "../common/MarqueeText";
 import AddTransaction from "./AddTransaction";
 import TransactionInfo from "./TransactionInfo";
 
+const message = `🌟 12.9 元抢鲜！柠檬蜂蜜水酸甜上线～ 现切安岳黄柠檬爆汁，搭配北纬 37° 槐花蜜，0 添加纯自然，酸甜润喉不齁甜！✨ 3 大亮点：❶冷热双泡，四季适配；❷350ml 便携装，随手补水利落无负担；❸蜂蜜代蔗糖，低卡轻负担，减脂期放心喝！💛 第二杯半价限时福利，用奶茶钱换天然元气水，入口清爽无负担，承包每日小确幸！`;
 const WaterPage = () => {
   const { isTriggered: showTransaction, handleTap } = useMultipleTap({
     tapsRequired: 3,
     timeThreshold: 1000,
   });
+
+  useEffect(() => {
+    StatusBar.setHidden(true);
+  }, []);
 
   return (
     <SafeAreaProvider>
@@ -28,10 +34,7 @@ const WaterPage = () => {
             resizeMode="contain"
             style={styles.backgroundImage}
           >
-            <MarqueeText
-              blinking={false}
-              value="蜂蜜水，清甜解渴，补充能量，继续前行！蜂蜜水，清甜解渴，补充能量，继续前行！蜂蜜水，清甜解渴，补充能量，继续前行！"
-            />
+            <MarqueeText blinking={false} value={message} />
             <ProductPage />
             {showTransaction && (
               <>
